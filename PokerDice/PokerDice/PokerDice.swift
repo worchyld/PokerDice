@@ -28,38 +28,3 @@ enum PokerHandRank: Int {
     case highCard = 0
 }
 
-func evaluateHand(_ dice: [PokerDice]) -> PokerHandRank {
-    // Count occurrences of each face
-    let counts: [String: Int] = [:]
-
-    // Sort counts by frequency
-    let sortedCounts = counts.values.sorted(by: >)
-
-    switch sortedCounts {
-    case [5]:
-        return .fiveOfAKind
-    case [4, 1]:
-        return .fourOfAKind
-    case [3, 2]:
-        return .fullHouse
-    case [3, 1, 1]:
-        return .threeOfAKind
-    case [2, 2, 1]:
-        return .twoPair
-    case [2, 1, 1, 1]:
-        return .onePair
-    default:
-        // Check for a straight (sequential values)
-        let sortedValues = dice.map { $0.rawValue }.sorted()
-        let isStraight = sortedValues == ["9", "10", "J", "Q", "K"] || sortedValues == ["10", "J", "Q", "K", "A"]
-
-        return isStraight ? .straight : .highCard
-    }
-}
-
-//
-//// Example Usage
-//let rolledDice = rollDice()
-//let handRank = evaluateHand(rolledDice)
-//print("You rolled: \(rolledDice.map { $0.rawValue }.joined(separator: " "))")
-//print("Hand Rank: \(handRank)")
